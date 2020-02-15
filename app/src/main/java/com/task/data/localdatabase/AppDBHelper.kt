@@ -1,8 +1,8 @@
 package com.task.data.localdatabase
 
 import androidx.lifecycle.LiveData
-import com.task.data.models.db.*
-
+import com.task.data.models.db.Category
+import com.task.data.models.db.Product
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -41,28 +41,6 @@ class AppDBHelper: DBHelper {
         appDatabase.productDao().insertAllProducts(productList)
     }
 
-    override fun insertOrderedRankingInDB(orderedRankingList: List<OrderedRanking>) {
-        appDatabase.rankingDao().insertAllOrderedRanking(orderedRankingList)
-    }
 
-    override fun insertSharedRankingInDB(sharedRankingList: List<SharedRanking>) {
-        appDatabase.rankingDao().insertAllSharedRanking(sharedRankingList)
-    }
-
-    override fun insertViewedRankingInDB(viewedRankingList: List<ViewedRanking>) {
-        appDatabase.rankingDao().insertAllViewedRanking(viewedRankingList)
-    }
-
-    override fun getOrderedRanking(): LiveData<List<OrderedRanking>> {
-        return (appDatabase.rankingDao().getOrderedRanking())
-    }
-
-    override fun getSharedRanking(): LiveData<List<SharedRanking>> {
-        return (appDatabase.rankingDao().getSharedRanking())
-    }
-
-    override fun getViewedRanking(): LiveData<List<ViewedRanking>> {
-        return (appDatabase.rankingDao().getViewedRanking())
-    }
 
 }

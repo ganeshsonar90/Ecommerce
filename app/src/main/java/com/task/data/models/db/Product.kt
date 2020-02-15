@@ -10,7 +10,7 @@ import com.task.data.models.TaxInfo
 import com.task.data.models.VariantInfo
 
 /**
- * Created by vikrambhati on 23/11/17.
+ *
  */
 @Entity(tableName = "product")
 class Product() : Parcelable {

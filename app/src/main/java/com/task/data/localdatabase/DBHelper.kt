@@ -1,7 +1,8 @@
 package com.task.data.localdatabase
 
 import androidx.lifecycle.LiveData
-import com.task.data.models.db.*
+import com.task.data.models.db.Category
+import com.task.data.models.db.Product
 
 
 interface DBHelper {
@@ -18,16 +19,5 @@ interface DBHelper {
 
    suspend fun insertAllProductsInDB(productList: List<Product>): Unit
 
-    fun insertOrderedRankingInDB(orderedRankingList: List<OrderedRanking>): Unit
-
-    fun insertSharedRankingInDB(sharedRankingList: List<SharedRanking>): Unit
-
-    fun insertViewedRankingInDB(viewedRankingList: List<ViewedRanking>): Unit
-
-    fun getOrderedRanking(): LiveData<List<OrderedRanking>>
-
-    fun getSharedRanking(): LiveData<List<SharedRanking>>
-
-    fun getViewedRanking(): LiveData<List<ViewedRanking>>
 
 }

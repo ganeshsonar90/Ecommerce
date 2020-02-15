@@ -6,7 +6,6 @@ import com.task.usecase.errors.ErrorManager
 import javax.inject.Inject
 
 /**
- * Created by AhmedEltaher on 5/12/2016
  */
 
 class SplashViewModel @Inject

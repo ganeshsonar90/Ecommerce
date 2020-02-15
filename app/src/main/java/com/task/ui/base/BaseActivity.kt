@@ -14,7 +14,6 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
- * Created by AhmedEltaher on 5/12/2016
  */
 
 

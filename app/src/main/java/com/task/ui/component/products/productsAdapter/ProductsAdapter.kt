@@ -1,4 +1,4 @@
-package com.task.ui.component.news.categoriesAdapter
+package com.task.ui.component.products.categoriesAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.task.R
 import com.task.data.models.db.Product
 import com.task.ui.base.listeners.RecyclerItemListener
-import com.task.ui.component.news.ProductsListViewModel
+import com.task.ui.component.products.ProductsListViewModel
 
 
 
@@ -20,7 +20,7 @@ class ProductsAdapter(private val newsListViewModel: ProductsListViewModel, priv
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         return ProductsViewHolder(view)
     }
 

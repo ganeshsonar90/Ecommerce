@@ -6,7 +6,7 @@ import com.task.data.models.db.Product
 import com.task.data.remote.dto.EcommResponse
 
 /**
- * Created by ahmedeltaher on 3/23/17.
+ *
  */
 
 interface DataSource {

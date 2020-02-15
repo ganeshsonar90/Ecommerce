@@ -1,22 +1,18 @@
-package com.task.ui.component.news
+package com.task.ui.component.products
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.task.data.DataSource
-import com.task.data.Resource
 import com.task.data.error.mapper.ErrorMapper
-import com.task.data.models.db.Category
 import com.task.data.models.db.Product
-import com.task.data.remote.dto.CategoryRemote
 import com.task.ui.base.BaseViewModel
-import com.task.usecase.NewsUseCase
 import com.task.usecase.errors.ErrorManager
 import com.task.utils.Event
 import javax.inject.Inject
 
 /**
- * Created by AhmedEltaher on 5/12/2016
+ *
  */
 
 class ProductsListViewModel @Inject
@@ -50,10 +46,6 @@ constructor(private val dataRepository: DataSource) : BaseViewModel() {
     private val showToastPrivate = MutableLiveData<Event<Any>>()
     val showToast: LiveData<Event<Any>> get() = showToastPrivate
 
-
-    fun getNews() {
-       // newsDataUseCase.getNews()
-    }
 
     fun openNewsDetails(product: Product) {
         openNewsDetailsPrivate.value = Event(product)

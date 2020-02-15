@@ -6,23 +6,21 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.task.data.localdatabase.converters.TaxInfoConverter
 import com.task.data.localdatabase.converters.VariantConverter
-import com.task.data.localdatabase.db.CategoryDAO
+import com.task.data.localdatabase.db.CategoryBaseDAO
 import com.task.data.localdatabase.db.ProductDAO
-import com.task.data.localdatabase.db.RankingDAO
-import com.task.data.models.db.*
+import com.task.data.models.db.Category
+import com.task.data.models.db.Product
 
 /**
- * Created by vikrambhati on 23/11/17.
+ *
  */
-@Database(entities = arrayOf(Category::class, Product::class, OrderedRanking::class,
-        SharedRanking::class, ViewedRanking::class), version = 1)
+@Database(entities = arrayOf(Category::class, Product::class), version = 1)
 @TypeConverters(TaxInfoConverter::class, VariantConverter::class)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun categoryDao(): CategoryDAO
+    abstract fun categoryDao(): CategoryBaseDAO
 
     abstract fun productDao(): ProductDAO
 
-    abstract fun rankingDao() : RankingDAO
 
 }

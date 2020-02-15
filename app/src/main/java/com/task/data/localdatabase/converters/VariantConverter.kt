@@ -5,10 +5,10 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.task.data.models.VariantInfo
-import java.util.ArrayList
+import java.util.*
 
 /**
- * Created by vikrambhati on 26/11/17.
+ *
  */
 class VariantConverter {
 

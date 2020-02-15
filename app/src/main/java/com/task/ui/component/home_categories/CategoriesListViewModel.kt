@@ -1,12 +1,12 @@
-package com.task.ui.component.news
+package com.task.ui.component.home_categories
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.task.data.DataSource
+import com.task.data.Resource
 import com.task.data.error.mapper.ErrorMapper
 import com.task.data.models.db.Category
-import com.task.data.remote.dto.NewsItem
 import com.task.ui.base.BaseViewModel
 import com.task.usecase.errors.ErrorManager
 import com.task.utils.Event
@@ -16,10 +16,9 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 /**
- * Created by AhmedEltaher on 5/12/2016
  */
 
-class NewsListViewModel @Inject
+class CategoriesListViewModel @Inject
 constructor(private val dataRepository: DataSource,override val coroutineContext: CoroutineContext) : BaseViewModel(), CoroutineScope {
 
     override val errorManager: ErrorManager
@@ -28,18 +27,9 @@ constructor(private val dataRepository: DataSource,override val coroutineContext
     /**
      * Data --> LiveData, Exposed as LiveData, Locally in viewModel as MutableLiveData
      */
-  //  var newsLiveData: MutableLiveData<Resource<List<Category>>> = newsDataUseCase.categoryLiveData
 
     var categoryLiveDataIn: LiveData<List<Category>> = dataRepository.requestCatgoryFromDataBase()
 
-
-
-
-    // dgbdf=newsDataUseCase.categoryLiveData
-
-
-    private val newsSearchFoundPrivate: MutableLiveData<NewsItem> = MutableLiveData()
-    val newsSearchFound: LiveData<NewsItem> get() = newsSearchFoundPrivate
 
     private val noSearchFoundPrivate: MutableLiveData<Unit> = MutableLiveData()
     val noSearchFound: LiveData<Unit> get() = noSearchFoundPrivate
@@ -60,11 +50,16 @@ constructor(private val dataRepository: DataSource,override val coroutineContext
     val showToast: LiveData<Event<Any>> get() = showToastPrivate
 
 
-    fun getCategories() {
+    private val updateProgress: MutableLiveData<Any> = MutableLiveData()
+    val updateProgressLive: LiveData<Any> get() = updateProgress
 
+
+    fun getCategories() {
         launch {
             try {
-                dataRepository.requestCategories()
+                updateProgress.postValue(Resource.Loading(data = 0))
+                var categoryNetworkUpdate = dataRepository.requestCategories()
+                updateProgress.postValue(categoryNetworkUpdate)
 
             } catch (e: Exception) {
             }

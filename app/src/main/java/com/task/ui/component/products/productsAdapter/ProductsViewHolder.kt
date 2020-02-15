@@ -1,4 +1,4 @@
-package com.task.ui.component.news.categoriesAdapter
+package com.task.ui.component.products.categoriesAdapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -7,10 +7,10 @@ import com.task.R
 import com.task.data.models.db.Product
 import com.task.ui.base.listeners.RecyclerItemListener
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.news_item.*
+import kotlinx.android.synthetic.main.list_item.*
 
 /**
- * Created by AhmedEltaher on 5/12/2016.
+ * C
  */
 
 class ProductsViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
@@ -18,7 +18,7 @@ class ProductsViewHolder(override val containerView: View) : RecyclerView.ViewHo
     fun bind(item: Product, recyclerItemListener: RecyclerItemListener) {
        // tv_caption.text = newsItem.
         tv_title.text = item.productName
-            Picasso.get().load(R.drawable.product).into(iv_news_item_image)
+        Picasso.get().load(R.drawable.product).into(iv_item_image)
         rl_news_item.setOnClickListener { recyclerItemListener.onItemSelected(item) }
     }
 }

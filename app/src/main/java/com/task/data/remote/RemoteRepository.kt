@@ -7,7 +7,8 @@ import com.task.data.error.Error.Companion.NO_INTERNET_CONNECTION
 import com.task.data.localdatabase.AppDBHelper
 import com.task.data.models.TaxInfo
 import com.task.data.models.VariantInfo
-import com.task.data.models.db.*
+import com.task.data.models.db.Category
+import com.task.data.models.db.Product
 import com.task.data.remote.dto.EcommResponse
 import com.task.data.remote.service.EcommService
 import com.task.utils.Constants
@@ -18,7 +19,7 @@ import javax.inject.Inject
 
 
 /**
- * Created by AhmedEltaher on 5/12/2016
+ *
  */
 
 class RemoteRepository @Inject

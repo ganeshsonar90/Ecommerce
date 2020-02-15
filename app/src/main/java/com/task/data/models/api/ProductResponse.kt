@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 
 /**
- * Created by vikrambhati on 24/11/17.
+ *
  */
 class ProductResponse {
 

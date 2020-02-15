@@ -93,7 +93,7 @@ fun View.showToast(
 }
 
 fun ImageView.loadImage(@DrawableRes resId: Int) = Picasso.get().load(resId).into(this)
-fun ImageView.loadImage(url: String) = Picasso.get().load(url).placeholder(R.drawable.news).error(R.drawable.news).into(this)
+fun ImageView.loadImage(url: String) = Picasso.get().load(url).placeholder(R.drawable.ecommerce_logo).error(R.drawable.ecommerce_logo).into(this)
 
 fun AppCompatTextView.setTextFutureExt(text: String) =
         setTextFuture(

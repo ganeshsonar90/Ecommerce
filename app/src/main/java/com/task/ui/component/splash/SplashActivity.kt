@@ -5,13 +5,12 @@ import android.os.Handler
 import com.task.R
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
-import com.task.ui.component.news.NewsListActivity
+import com.task.ui.component.home_categories.CategoryListActivity
 import com.task.utils.Constants
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 /**
- * Created by AhmedEltaher on 5/12/2016
  */
 
 class SplashActivity : BaseActivity(){
@@ -39,7 +38,7 @@ class SplashActivity : BaseActivity(){
 
     private fun navigateToMainScreen() {
         Handler().postDelayed({
-            startActivity<NewsListActivity>()
+            startActivity<CategoryListActivity>()
             finish()
         }, Constants.SPLASH_DELAY.toLong())
     }

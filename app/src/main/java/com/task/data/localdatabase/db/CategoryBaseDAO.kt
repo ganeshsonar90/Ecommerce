@@ -10,7 +10,7 @@ import com.task.data.models.db.Category
 
 
 @Dao
-interface CategoryDAO {
+interface CategoryBaseDAO {
 
     @Query("SELECT * FROM category")
     fun getAllCategories(): LiveData<List<Category>>

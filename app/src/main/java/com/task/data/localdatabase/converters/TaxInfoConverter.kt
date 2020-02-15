@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken
 import com.task.data.models.TaxInfo
 
 /**
- * Created by vikrambhati on 26/11/17.
  */
 class TaxInfoConverter {
 

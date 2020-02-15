@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 /**
- * Created by vikrambhati on 26/11/17.
+ *
  */
 class TaxInfo() : Parcelable {
 
