@@ -1,11 +1,10 @@
-package com.task.ui.component.news.newsAdapter
+package com.task.ui.component.news.categoriesAdapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.task.R
 import com.task.data.models.db.Category
-import com.task.data.remote.dto.CategoryRemote
 import com.task.ui.base.listeners.RecyclerItemListener
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.news_item.*

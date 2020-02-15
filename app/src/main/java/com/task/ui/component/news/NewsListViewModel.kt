@@ -3,24 +3,24 @@ package com.task.ui.component.news
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.task.data.Resource
+import com.task.data.DataSource
 import com.task.data.error.mapper.ErrorMapper
 import com.task.data.models.db.Category
-import com.task.data.remote.dto.CategoryRemote
 import com.task.data.remote.dto.NewsItem
-import com.task.data.remote.dto.EcommResponse
 import com.task.ui.base.BaseViewModel
-import com.task.usecase.NewsUseCase
 import com.task.usecase.errors.ErrorManager
 import com.task.utils.Event
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 /**
  * Created by AhmedEltaher on 5/12/2016
  */
 
 class NewsListViewModel @Inject
-constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
+constructor(private val dataRepository: DataSource,override val coroutineContext: CoroutineContext) : BaseViewModel(), CoroutineScope {
 
     override val errorManager: ErrorManager
         get() = ErrorManager(ErrorMapper())
@@ -28,9 +28,9 @@ constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
     /**
      * Data --> LiveData, Exposed as LiveData, Locally in viewModel as MutableLiveData
      */
-    var newsLiveData: MutableLiveData<Resource<List<Category>>> = newsDataUseCase.newsLiveData
+  //  var newsLiveData: MutableLiveData<Resource<List<Category>>> = newsDataUseCase.categoryLiveData
 
-    var categoryLiveDataIn: LiveData<List<Category>>? = null
+    var categoryLiveDataIn: LiveData<List<Category>> = dataRepository.requestCatgoryFromDataBase()
 
 
 
@@ -47,8 +47,8 @@ constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
     /**
      * UI actions as event, user action is single one time event, Shouldn't be multiple time consumption
      */
-    private val openNewsDetailsPrivate = MutableLiveData<Event<CategoryRemote>>()
-    val openNewsDetails: LiveData<Event<CategoryRemote>> get() = openNewsDetailsPrivate
+    private val openNewsDetailsPrivate = MutableLiveData<Event<Category>>()
+    val openNewsDetails: LiveData<Event<Category>> get() = openNewsDetailsPrivate
 
     /**
      * Error handling as UI
@@ -60,14 +60,19 @@ constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
     val showToast: LiveData<Event<Any>> get() = showToastPrivate
 
 
-    fun getNews() {
-        newsDataUseCase.getNews()
-        if (newsDataUseCase?.categoryLiveDataInCase!=null)
-        categoryLiveDataIn=newsDataUseCase?.categoryLiveDataInCase!!
+    fun getCategories() {
+
+        launch {
+            try {
+                dataRepository.requestCategories()
+
+            } catch (e: Exception) {
+            }
+        }
     }
 
     fun openNewsDetails(newsItem: Category) {
-       // openNewsDetailsPrivate.value = Event(newsItem)
+        openNewsDetailsPrivate.value = Event(newsItem)
     }
 
     fun showSnackbarMessage(@StringRes message: Int) {
@@ -80,7 +85,7 @@ constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
     }
 
     fun onSearchClick(newsTitle: String) {
-        if (newsTitle.isNotEmpty()) {
+       /* if (newsTitle.isNotEmpty()) {
             val newsItem = newsDataUseCase.searchByTitle(newsTitle)
             if (newsItem != null) {
                 newsSearchFoundPrivate.value = newsItem
@@ -89,10 +94,13 @@ constructor(private val newsDataUseCase: NewsUseCase) : BaseViewModel() {
             }
         } else {
             noSearchFoundPrivate.postValue(Unit)
-        }
+        }*/
     }
 
-    fun getCategoryFromDatabase() {
+   /* fun getCategoryFromDatabase() {
         newsDataUseCase.getLiveCategoryFromDataBase()
-    }
+    }*/
+
+
+
 }

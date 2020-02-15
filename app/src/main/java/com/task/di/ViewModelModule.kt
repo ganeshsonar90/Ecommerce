@@ -18,6 +18,7 @@ package com.task.di
 import androidx.lifecycle.ViewModel
 import com.task.ui.component.details.DetailsViewModel
 import com.task.ui.component.news.NewsListViewModel
+import com.task.ui.component.news.ProductsListViewModel
 import com.task.ui.component.splash.SplashViewModel
 import dagger.Binds
 import dagger.Module
@@ -30,6 +31,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(NewsListViewModel::class)
     abstract fun bindUserViewModel(viewModel: NewsListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductsListViewModel::class)
+    abstract fun bindProductsViewModel(viewModel: ProductsListViewModel): ViewModel
 
     @Binds
     @IntoMap

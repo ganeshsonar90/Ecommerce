@@ -1,45 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_title"
-            style="@style/Title_Style"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:textSize="24sp"
-            android:typeface="monospace"
-            android:textStyle="bold"
-            tools:text="@string/news_title_preview"/>
-
-        <ImageView
-            android:id="@+id/iv_news_main_Image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:src="@drawable/news"/>
-
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:textSize="16sp"
-            tools:text="@string/news_details_preview"/>
-    </LinearLayout>
-
-</ScrollView>
+    <include
+      android:id="@+id/toolbar_layout"
+      layout="@layout/toolbar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+      android:id="@+id/imageView_prd"
+      android:layout_width="0dp"
+      android:layout_height="120dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+      app:layout_constraintVertical_bias="0.0"
+      app:srcCompat="@drawable/product" />
+    <TextView
+      android:id="@+id/textView_prd_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="23dp"
+      android:layout_marginLeft="23dp"
+      android:layout_marginTop="17dp"
+      android:layout_marginEnd="159dp"
+      android:layout_marginRight="159dp"
+      android:layout_marginBottom="102dp"
+      android:text="name"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/imageView_prd"
+      app:layout_constraintVertical_bias="0.16000003" />
+    <TextView
+      android:id="@+id/textView_price"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginEnd="158dp"
+      android:layout_marginRight="158dp"
+      android:layout_marginBottom="78dp"
+      android:text="price"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView_prd_name"
+      app:layout_constraintVertical_bias="0.0" />
+    <ProgressBar
+      android:id="@+id/progressBar"
+      style="?android:attr/progressBarStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toEndOf="@+id/textView_prd_name"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

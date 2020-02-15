@@ -1,11 +1,10 @@
-package com.task.ui.component.news.newsAdapter
+package com.task.ui.component.news.categoriesAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.task.R
 import com.task.data.models.db.Category
-import com.task.data.remote.dto.CategoryRemote
 import com.task.ui.base.listeners.RecyclerItemListener
 import com.task.ui.component.news.NewsListViewModel
 
@@ -16,8 +15,8 @@ import com.task.ui.component.news.NewsListViewModel
 class NewsAdapter(private val newsListViewModel: NewsListViewModel, private val categoryRemotes: List<Category>) : RecyclerView.Adapter<NewsViewHolder>() {
 
     private val onItemClickListener: RecyclerItemListener = object : RecyclerItemListener {
-        override fun onItemSelected(newsItem: Category) {
-            newsListViewModel.openNewsDetails(newsItem)
+        override fun onItemSelected(item: Any) {
+            newsListViewModel.openNewsDetails(item as Category)
         }
 
     }

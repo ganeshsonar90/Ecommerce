@@ -21,7 +21,7 @@ class AppDBHelper: DBHelper {
         appDatabase.categoryDao().insertAllCategories(categoryList)
     }
 
-    override suspend fun getAllCategoriesFromDB(): LiveData<List<Category>> {
+    override  fun getAllCategoriesFromDB(): LiveData<List<Category>> {
         return (appDatabase.categoryDao().getAllCategories())
     }
 
@@ -29,7 +29,7 @@ class AppDBHelper: DBHelper {
         return (appDatabase.productDao().getAllProducts(categoryId))
     }
 
-    override fun getProductDetailFromDB(productId: Int): Product {
+    override fun getProductDetailFromDB(productId: Int): LiveData<Product> {
         return (appDatabase.productDao().getProductDetail(productId))
     }
 

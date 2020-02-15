@@ -13,7 +13,7 @@ import com.task.data.remote.dto.EcommResponse
 
 interface UseCase {
     fun getNews()
+    fun getProducts()
     fun searchByTitle(keyWord: String): NewsItem?
-    val newsLiveData: MutableLiveData<Resource<List<Category>>>
 
 }

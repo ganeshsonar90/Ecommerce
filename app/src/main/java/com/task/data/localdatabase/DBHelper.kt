@@ -8,11 +8,11 @@ interface DBHelper {
 
   suspend  fun insertCategoriesInDB(categoryList: List<Category>): Unit
 
-   suspend fun getAllCategoriesFromDB(): LiveData<List<Category>>
+    fun getAllCategoriesFromDB(): LiveData<List<Category>>
 
     fun getAllProductsFromDB(categoryId: Int): LiveData<List<Product>>
 
-    fun getProductDetailFromDB(productId: Int): Product
+    fun getProductDetailFromDB(productId: Int): LiveData<Product>
 
     fun getSimilarProductsWithGivenCategoryIdFromDB(categoryId: Int, productId: Int): LiveData<List<Product>>
 

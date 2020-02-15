@@ -1,27 +1,21 @@
 package com.task.ui.component.news
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.test.espresso.IdlingResource
 import com.google.android.material.snackbar.Snackbar
 import com.task.R
-import com.task.data.Resource
 import com.task.data.models.db.Category
-import com.task.data.remote.dto.CategoryRemote
 import com.task.data.remote.dto.NewsItem
 import com.task.ui.ViewModelFactory
 import com.task.ui.base.BaseActivity
-import com.task.ui.component.details.DetailsActivity
-import com.task.ui.component.news.newsAdapter.NewsAdapter
+import com.task.ui.component.news.categoriesAdapter.NewsAdapter
 import com.task.utils.*
 import kotlinx.android.synthetic.main.home_activity.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
 
@@ -35,24 +29,19 @@ class NewsListActivity : BaseActivity() {
     override val layoutId: Int
         get() = R.layout.home_activity
 
-    val countingIdlingResource: IdlingResource
+   /* val countingIdlingResource: IdlingResource
         @VisibleForTesting
         get() = EspressoIdlingResource.idlingResource
-
+*/
     override fun initializeViewModel() {
         newsListViewModel = viewModelFactory.create(NewsListViewModel::class.java)
-        newsListViewModel.getNews()
-        newsListViewModel?.categoryLiveDataIn?.let {
-            observe(newsListViewModel.categoryLiveDataIn!!, ::handleNewsList)
-
-        }
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ic_toolbar_refresh.setOnClickListener {
-            newsListViewModel.getNews()
+            newsListViewModel.getCategories()
         }
         btn_search.setOnClickListener {
             if (!(et_search.text?.toString().isNullOrEmpty())) {
@@ -63,24 +52,31 @@ class NewsListActivity : BaseActivity() {
         val layoutManager = LinearLayoutManager(this)
         rv_news_list.layoutManager = layoutManager
         rv_news_list.setHasFixedSize(true)
-       // newsListViewModel.getNews()
+        showLoadingView()
+        newsListViewModel.getCategories()
 
     }
 
-    private fun bindListData(categoryModel:List<Category>) {
-        if (!(categoryModel.isNullOrEmpty())) {
-            val newsAdapter = NewsAdapter(newsListViewModel, categoryModel!!)
+    private fun bindListData(categoeyList:List<Category>) {
+        if (!(categoeyList.isNullOrEmpty())) {
+            val newsAdapter = NewsAdapter(newsListViewModel, categoeyList!!)
             rv_news_list.adapter = newsAdapter
             showDataView(true)
         } else {
             showDataView(false)
         }
-        EspressoIdlingResource.decrement()
+       // EspressoIdlingResource.decrement()
     }
 
-    private fun navigateToDetailsScreen(navigateEvent: Event<CategoryRemote>) {
+    private fun navigateToDetailsScreen(navigateEvent: Event<Category>) {
         navigateEvent.getContentIfNotHandled()?.let {
-            startActivity(intentFor<DetailsActivity>(Constants.NEWS_ITEM_KEY to it))
+            //startActivity(intentFor<DetailsActivity>(Constants.NEWS_ITEM_KEY to it))
+
+
+            var categoryId=it.categoryId
+            startActivity(Intent(this, ProductsListActivity::class.java)
+                    .putExtra(Constants.EXTRAS_CATEGORY_ID,categoryId))
+
         }
     }
 
@@ -106,7 +102,7 @@ class NewsListActivity : BaseActivity() {
         pb_loading.toVisible()
         tv_no_data.toGone()
         rl_news_list.toGone()
-        EspressoIdlingResource.increment()
+       // EspressoIdlingResource.increment()
     }
 
 
@@ -120,44 +116,22 @@ class NewsListActivity : BaseActivity() {
         pb_loading.toGone()
     }
 
-    private fun handleNewsList(newsModel: List<Category>) {
+    private fun handleNewsList(categoryList: List<Category>) {
 
-         if (newsModel?.isNullOrEmpty()){
-                   Log.e("UseCase","Api called")
-                   newsListViewModel.getCategoryFromDatabase()
-             return
-               }else{
-                   Log.e("UseCase","database called")
-
-
-             if (newsModel.size>0){
-                 bindListData(newsModel)
-             }else{
-                 showDataView(false)
-                 //newsListViewModel.showToastMessage("")
-             }
-
-
-               }
-
-      /*  when (newsModel) {
-            is Resource.Loading -> showLoadingView()
-            is Resource.Success -> newsModel.data?.let { bindListData(categoryModel = it) }
-            is Resource.DataError -> {
-                showDataView(false)
-                newsModel.errorCode?.let { newsListViewModel.showToastMessage(it) }
-            }
-        }*/
+        if (categoryList.isNullOrEmpty()){
+          //  showDataView(false)
+            pb_loading.toGone()
+        }else{
+            bindListData(categoryList)
+        }
 
     }
 
     override fun observeViewModel() {
-       // observe(newsListViewModel.categoryLiveDataIn, ::handleNewsList)
+        observe(newsListViewModel.categoryLiveDataIn!!, ::handleNewsList)
 
 
-        observe(newsListViewModel.newsLiveData, ::handleNewsListProgress)
-
-
+    //    observe(newsListViewModel.newsLiveData, ::handleNewsListProgress)
         observe(newsListViewModel.newsSearchFound, ::showSearchResult)
         observe(newsListViewModel.noSearchFound, ::noSearchResult)
         observeEvent(newsListViewModel.openNewsDetails, ::navigateToDetailsScreen)
@@ -166,14 +140,5 @@ class NewsListActivity : BaseActivity() {
 
     }
 
-    private fun handleNewsListProgress(resource: Resource<List<Category>>?) {
-        when (resource) {
-                  is Resource.Loading -> showLoadingView()
-                 // is Resource.Success -> resource.data?.let { bindListData(categoryModel = it) }
-                  is Resource.DataError -> {
-                      showDataView(false)
-                      resource.errorCode?.let { newsListViewModel.showToastMessage(it) }
-                  }
-              }
-    }
+
 }

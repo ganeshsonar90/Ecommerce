@@ -8,5 +8,5 @@ import com.task.data.remote.dto.CategoryRemote
  */
 
 interface RecyclerItemListener {
-    fun onItemSelected(newsItem: Category)
+    fun onItemSelected(newsItem: Any)
 }

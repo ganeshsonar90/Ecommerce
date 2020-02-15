@@ -15,7 +15,7 @@ interface ProductDAO {
     fun getAllProducts(categoryId: Int): LiveData<List<Product>>
 
     @Query("SELECT * FROM product WHERE productId = :productId")
-    fun getProductDetail(productId: Int):Product
+    fun getProductDetail(productId: Int):LiveData<Product>
 
     @Query("SELECT * FROM product WHERE categoryId = :categoryId AND NOT productId = :productId")
     fun getSimilarProductsWithGivenCategoryId(categoryId: Int, productId: Int): LiveData<List<Product>>

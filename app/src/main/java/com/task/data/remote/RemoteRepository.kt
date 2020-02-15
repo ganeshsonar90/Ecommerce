@@ -28,7 +28,13 @@ constructor(private val serviceGenerator: ServiceGenerator,private val localRepo
         val newsService = serviceGenerator.createService(EcommService::class.java, Constants.BASE_URL)
         return when (val response = processCall(newsService::fetchEcommCat)) {
             is EcommResponse -> {
-                insertAllDataInDB(response)
+
+                var categoryPresent = localRepository.getAllCategoriesFromDB()
+
+                if (categoryPresent==null ||categoryPresent?.value.isNullOrEmpty()){
+                    insertAllDataInDB(response)
+                }
+
                 Resource.Success(data = response)
             }
             else -> {
